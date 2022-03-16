@@ -4,7 +4,7 @@ ARG DIR=/maskrcnn-benchmark
 RUN apt-get update && apt-get install -y --no-install-recommends \
         cmake g++ \
         wget git ca-certificates \
-        libglib2.0-0 libsm6 libxext6 libxrender-dev && \
+        libglib2.0-0 libsm6 libxext6 libxrender-dev build-essential gcc g++  && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
@@ -39,7 +39,7 @@ FROM debian:buster-slim
 ARG DIR=/maskrcnn-benchmark
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libglib2.0-0 libsm6 libxext6 libxrender-dev && \
+        libglib2.0-0 libsm6 libxext6 libxrender-dev build-essential gcc g++ && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build $DIR $DIR
