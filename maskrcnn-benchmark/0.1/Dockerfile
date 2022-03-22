@@ -4,7 +4,7 @@ ARG DIR=/maskrcnn-benchmark
 RUN apt-get update && apt-get install -y --no-install-recommends \
         cmake g++ \
         wget git ca-certificates \
-        libglib2.0-0 libsm6 libxext6 libxrender-dev build-essential gcc g++  && \
+        libglib2.0-0 libsm6 libxext6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
 RUN wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
@@ -39,7 +39,7 @@ FROM debian:buster-slim
 ARG DIR=/maskrcnn-benchmark
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libglib2.0-0 libsm6 libxext6 libxrender-dev build-essential gcc g++ && \
+        libglib2.0-0 libsm6 libxext6 libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build $DIR $DIR
@@ -55,6 +55,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir ipykernel opencv-python
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        g++ && \
+    rm -rf /var/lib/apt/lists/*
 
 LABEL maintainer=rs7wz@virginia.edu \
       homepage=https://github.com/facebookresearch/maskrcnn-benchmark \
